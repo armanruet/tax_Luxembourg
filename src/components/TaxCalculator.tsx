@@ -68,59 +68,6 @@ export function TaxCalculator({
 
   return (
     <div className="space-y-6">
-      {/* Input Section - HIDDEN FOR NOW */}
-      {false && (
-        <div className="space-y-4">
-          <h3 className="font-semibold text-gray-800">Household Income</h3>
-          
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Partner 1 Annual Income
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">€</span>
-                <input
-                  type="number"
-                  value={income1}
-                  onChange={(e) => handleIncomeChange('income1', e.target.value)}
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="70000"
-                  min="0"
-                  max="500000"
-                  step="1000"
-                />
-              </div>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Partner 2 Annual Income
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">€</span>
-                <input
-                  type="number"
-                  value={income2}
-                  onChange={(e) => handleIncomeChange('income2', e.target.value)}
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="20000"
-                  min="0"
-                  max="500000"
-                  step="1000"
-                />
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <p className="text-sm text-gray-600">
-              <strong>Total Household Income:</strong> {formatCurrency(income1 + income2)}
-            </p>
-          </div>
-        </div>
-      )}
-
       {/* Method Selection */}
       <div className="space-y-4">
         {/* <h3 className="font-semibold text-gray-800">Taxation Method</h3> */}
@@ -211,44 +158,6 @@ export function TaxCalculator({
             </div>
           )}
 
-          {/* Comparison Information Box - When both methods are selected - HIDDEN FOR NOW */}
-          {false && showBothMethods && result && (
-            <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg">
-              <h4 className="font-semibold text-purple-900 mb-4">🔄 Tax Method Comparison Analysis</h4>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h5 className="font-medium text-purple-800 mb-3">Financial Comparison</h5>
-                  <div className="space-y-2 text-sm text-purple-700">
-                    <p><strong>Tax Difference:</strong> {formatCurrency(Math.abs(result.difference))}</p>
-                    <p><strong>Recommended Method:</strong> {result.recommendation === 'joint' ? 'Joint' : 'Individual'} taxation</p>
-                    <p><strong>Annual Savings:</strong> {formatCurrency(result.savings)}</p>
-                    <p><strong>Monthly Savings:</strong> {formatCurrency(result.savings / 12)}</p>
-                    <p><strong>Effective Tax Rate:</strong> {result.recommendation === 'joint' ? formatPercentage(result.jointTaxation.effectiveRate) : formatPercentage(result.individualTaxation.effectiveRate)}</p>
-                  </div>
-                </div>
-                <div>
-                  <h5 className="font-medium text-purple-800 mb-3">Key Considerations</h5>
-                  <div className="space-y-2 text-sm text-purple-700">
-                    <p>• <strong>Labor Market:</strong> Individual taxation encourages work participation</p>
-                    <p>• <strong>Gender Equality:</strong> Benefits women's economic participation</p>
-                    <p>• <strong>Economic Growth:</strong> Potential for increased tax revenue</p>
-                    <p>• <strong>Household Dynamics:</strong> May affect work-life balance decisions</p>
-                    <p>• <strong>Income Distribution:</strong> {income1 > income2 ? 'Significant income disparity favors joint taxation' : 'Similar incomes may benefit from individual taxation'}</p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Additional Insights */}
-              <div className="mt-6 pt-4 border-t border-purple-200">
-                <h5 className="font-medium text-purple-800 mb-2">💡 Policy Insights</h5>
-                <div className="text-sm text-purple-700 space-y-1">
-                  <p><strong>For Your Scenario:</strong> With a household income of {formatCurrency(income1 + income2)} and an income ratio of {(income1 / income2).toFixed(1)}:1, {result.recommendation === 'joint' ? 'joint taxation provides better immediate financial benefits.' : 'individual taxation offers better long-term economic incentives.'}</p>
-                  <p><strong>Research Finding:</strong> Individual taxation could increase women's labor participation by 3.20% and overall working hours by 2.30%, potentially generating €9.8 million in additional tax revenue.</p>
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* Impact Analysis - Only show when both methods are selected */}
           {showBothMethods && (
             <div className="bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-lg">
@@ -272,24 +181,6 @@ export function TaxCalculator({
                     <p>• <strong>EU Coordination:</strong> Harmonization needed across member states</p>
                   </div>
                 </div>
-              </div>
-            </div>
-          )}
-
-          {/* Summary - HIDDEN FOR NOW */}
-          {false && showBothMethods && (
-            <div className="bg-blue-50 p-6 rounded-lg">
-              <h4 className="font-semibold text-blue-900 mb-3">💰 Summary</h4>
-              <div className="space-y-2 text-blue-800">
-                <p>
-                  <strong>{result && result.recommendation === 'joint' ? 'Joint' : 'Individual'} taxation</strong> is 
-                  better for this scenario, saving you <strong>{result && formatCurrency(result.savings)}</strong> annually.
-                </p>
-                {result && result.savings > 0 && (
-                  <p className="text-sm">
-                    That's approximately <strong>{formatCurrency(result.savings / 12)}</strong> per month in savings!
-                  </p>
-                )}
               </div>
             </div>
           )}
