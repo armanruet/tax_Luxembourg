@@ -29,6 +29,25 @@ export interface BehavioralResponse {
   workingHoursIncrease: number
   menChangeMinimal: boolean
   taxRevenueGain: number
+  economicGrowthPotential: number
+  genderEqualityImpact: number
+  householdIncomeIncrease: number
+  laborMarketEfficiency: number
+}
+
+export interface TransitionImpact {
+  shortTermCosts: number
+  longTermBenefits: number
+  implementationTime: number
+  politicalFeasibility: number
+  administrativeComplexity: number
+}
+
+export interface EUProjection {
+  totalEconomicBenefit: number
+  countriesBenefiting: number
+  implementationCost: number
+  timeToBreakEven: number
 }
 
 export interface PollOption {

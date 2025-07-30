@@ -44,10 +44,10 @@ function TaxSimulatorContent() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-                Luxembourg Tax Simulator
+                Luxembourg Tax Policy Analysis
               </h1>
               <p className="text-gray-600 mt-1">
-                Compare Joint vs Individual Taxation
+                Interactive Calculator & Behavioral Effects of Joint vs Individual Taxation
               </p>
             </div>
             <Link 
@@ -61,12 +61,39 @@ function TaxSimulatorContent() {
       </header>
 
       <main className="container mx-auto px-4 py-8">
+        {/* Introduction Section */}
+        <section className="mb-8">
+          <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-xl">
+            <h2 className="text-xl font-bold text-gray-800 mb-3">
+              🎯 Research Overview
+            </h2>
+            <div className="text-sm text-gray-700 space-y-3">
+              <p>
+                <strong>Study Objective:</strong> This analysis examines the behavioral and fiscal effects of switching from joint to individual taxation in Luxembourg. 
+                Conducted by Nizamul Islam at the Luxembourg Institute of Socio-Economic Research (LISER), the research uses EUROMOD and Lux TaxBen microsimulation models 
+                to inform fairer and more effective tax policies.
+              </p>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="font-semibold text-blue-800 mb-2">Joint Taxation</h3>
+                  <p>The household is treated as a single tax unit. While it can reduce tax burden for single-earner families, it may create disincentives for second earners, often women.</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-green-800 mb-2">Individual Taxation</h3>
+                  <p>Each person is taxed separately on their own income. This approach supports equal work incentives but may lead to higher tax burden for some families.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Two Column Layout */}
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Tax Calculator */}
           <div className="space-y-6">
             <section className="bg-white rounded-xl p-6 shadow-lg">
               <h2 className="text-xl font-bold mb-6 text-gray-800">
-                🧮 Tax Calculator
+                🧮 Taxation Method
               </h2>
               <TaxCalculator 
                 initialIncome1={initialIncome1}
@@ -76,7 +103,7 @@ function TaxSimulatorContent() {
             </section>
           </div>
 
-          {/* Behavioral Responses */}
+          {/* Behavioral Response Analysis */}
           <div className="space-y-6">
             <section className="bg-white rounded-xl p-6 shadow-lg">
               <h2 className="text-xl font-bold mb-6 text-gray-800">
@@ -84,50 +111,61 @@ function TaxSimulatorContent() {
               </h2>
               <BehavioralResponseChart />
             </section>
-            
-            {/* Additional Info */}
-            <section className="bg-blue-50 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-blue-900 mb-4">
-                💡 What This Means
-              </h3>
-              <div className="space-y-3 text-blue-800">
-                <p className="text-sm">
-                  <strong>Individual Taxation Benefits:</strong> 
-                  Encourages both spouses to work, especially beneficial for women's labor market participation.
-                </p>
-                <p className="text-sm">
-                  <strong>Joint Taxation Benefits:</strong> 
-                  Often provides immediate tax savings for couples with income disparities.
-                </p>
-                <p className="text-sm">
-                  <strong>Economic Impact:</strong> 
-                  Individual taxation could generate significant economic benefits through increased labor participation.
-                </p>
-              </div>
-            </section>
           </div>
         </div>
+
+        {/* Key Insights Section */}
+        <section className="mt-12">
+          <div className="bg-white rounded-xl p-8 shadow-lg">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+              💡 Key Research Findings
+            </h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center p-4 bg-blue-50 rounded-lg">
+                <div className="text-3xl mb-2">👩‍💼</div>
+                <h3 className="font-semibold text-blue-800 mb-2">Women's Labor Supply</h3>
+                <p className="text-sm text-blue-700">
+                  Individual taxation would increase women's labor hours by 2.30% and participation by 3.20%, significantly boosting female economic participation.
+                </p>
+              </div>
+              <div className="text-center p-4 bg-green-50 rounded-lg">
+                <div className="text-3xl mb-2">💰</div>
+                <h3 className="font-semibold text-green-800 mb-2">Fiscal Benefits</h3>
+                <p className="text-sm text-green-700">
+                  The transition to individual taxation is projected to generate a net fiscal gain of €9.8 million for the government.
+                </p>
+              </div>
+              <div className="text-center p-4 bg-purple-50 rounded-lg">
+                <div className="text-3xl mb-2">⚖️</div>
+                <h3 className="font-semibold text-purple-800 mb-2">Gender Equity</h3>
+                <p className="text-sm text-purple-700">
+                  Individual taxation promotes gender equity by removing disincentives for secondary earners and creating fairer work incentives.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Call to Action */}
         <section className="mt-12 text-center">
           <div className="bg-white rounded-xl p-8 shadow-lg">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">
-              Want to Learn More?
+              Ready to Learn More?
             </h2>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              This simulation is based on research by the Luxembourg Institute of Socio-Economic Research (LISER). 
-              The behavioral responses shown are derived from microsimulation analysis.
+              This analysis combines interactive tax calculation with comprehensive research findings. Explore how different income scenarios affect your tax burden 
+              while understanding the broader behavioral and economic impacts of tax policy choices.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 href="/"
-                className="btn-primary"
+                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Return to Main Demo
               </Link>
               <button
                 onClick={() => window.location.reload()}
-                className="btn-secondary"
+                className="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors"
               >
                 Try Different Scenario
               </button>
