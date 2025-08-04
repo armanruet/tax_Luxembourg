@@ -3,7 +3,6 @@
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { TaxCalculator } from '@/components/TaxCalculator'
-import { BehavioralResponseChart } from '@/components/BehavioralResponseChart'
 import Link from 'next/link'
 
 // Force dynamic rendering
@@ -22,6 +21,7 @@ function LoadingSpinner() {
 function TaxSimulatorContent() {
   const searchParams = useSearchParams()
   const [mounted, setMounted] = useState(false)
+  const [selectedTab, setSelectedTab] = useState<'joint' | 'individual' | 'impact'>('joint')
   
   // Get initial values from URL parameters
   const initialIncome1 = searchParams.get('income1') ? parseInt(searchParams.get('income1')!) : 70000
@@ -38,84 +38,237 @@ function TaxSimulatorContent() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-                Luxembourg Tax Policy Analysis
-              </h1>
-              <p className="text-gray-600 mt-1">
-                Interactive Calculator & Behavioral Effects of Joint vs Individual Taxation
-              </p>
-            </div>
-            <Link 
-              href="/"
-              className="text-blue-600 hover:text-blue-800 font-medium"
-            >
-              ← Back to Home
-            </Link>
-          </div>
-        </div>
-      </header>
-
+      {/* Back to Home Button */}
+      <div className="absolute top-4 right-4 z-10">
+        <Link 
+          href="/"
+          className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-md"
+        >
+          ← Back to Home
+        </Link>
+      </div>
+      
       <main className="container mx-auto px-4 py-8">
         {/* Introduction Section */}
         <section className="mb-8">
-          <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-xl">
-            <h2 className="text-xl font-bold text-gray-800 mb-3">
-              🎯 Research Overview
+          <div className="flex justify-center">
+            <div className="bg-white p-4 rounded-xl shadow-lg">
+              <img 
+                src="/tax_policy_choices.png" 
+                alt="Taxing Choices: Joint vs Individual Taxation" 
+                className="w-full max-w-4xl h-auto rounded-lg"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Interactive Information Section */}
+        <section className="mb-8">
+          <div className="bg-white rounded-xl p-6 shadow-lg">
+            <h2 className="text-xl font-bold mb-6 text-gray-800 text-center">
+              📊 Understanding Taxation Methods
             </h2>
-            <div className="text-sm text-gray-700 space-y-3">
-              <p>
-                <strong>Study Objective:</strong> This analysis examines the behavioral and fiscal effects of switching from joint to individual taxation in Luxembourg. 
-                Conducted by Nizamul Islam at the Luxembourg Institute of Socio-Economic Research (LISER), the research uses EUROMOD and Lux TaxBen microsimulation models 
-                to inform fairer and more effective tax policies.
-              </p>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="font-semibold text-blue-800 mb-2">Joint Taxation</h3>
-                  <p>The household is treated as a single tax unit. While it can reduce tax burden for single-earner families, it may create disincentives for second earners, often women.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-green-800 mb-2">Individual Taxation</h3>
-                  <p>Each person is taxed separately on their own income. This approach supports equal work incentives but may lead to higher tax burden for some families.</p>
-                </div>
+            
+            {/* Tab Buttons */}
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
+              <button
+                onClick={() => setSelectedTab('joint')}
+                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                  selectedTab === 'joint'
+                    ? 'bg-orange-500 text-white shadow-md'
+                    : 'bg-orange-100 text-orange-700 hover:bg-orange-200'
+                }`}
+              >
+                Joint Taxation
+              </button>
+              <button
+                onClick={() => setSelectedTab('individual')}
+                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                  selectedTab === 'individual'
+                    ? 'bg-green-500 text-white shadow-md'
+                    : 'bg-green-100 text-green-700 hover:bg-green-200'
+                }`}
+              >
+                Individual Taxation
+              </button>
+              <button
+                onClick={() => setSelectedTab('impact')}
+                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                  selectedTab === 'impact'
+                    ? 'bg-blue-500 text-white shadow-md'
+                    : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                }`}
+              >
+                Impact
+              </button>
+            </div>
+
+            {/* Content Area */}
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Text Content */}
+              <div className="space-y-4">
+                {selectedTab === 'joint' && (
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-orange-800">Joint Taxation</h3>
+                    <div className="space-y-3 text-gray-700">
+                      <div>
+                        <strong>How it works:</strong> Both partners' incomes are combined and taxed as a single household unit.
+                      </div>
+                      <div>
+                        <strong>Benefits:</strong> Often provides tax savings for couples with income disparities.
+                      </div>
+                      <div>
+                        <strong>Considerations:</strong> May discourage secondary earners from working more hours.
+                      </div>
+                      <div>
+                        <strong>Best for:</strong> Couples with significant income differences or where one partner works part-time.
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {selectedTab === 'individual' && (
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-green-800">Individual Taxation</h3>
+                    <div className="space-y-3 text-gray-700">
+                      <div>
+                        <strong>How it works:</strong> Each partner is taxed separately on their individual income.
+                      </div>
+                      <div>
+                        <strong>Benefits:</strong> Encourages both spouses to work, especially beneficial for women's labor market participation.
+                      </div>
+                      <div>
+                        <strong>Economic Impact:</strong> Can generate significant economic benefits through increased labor participation.
+                      </div>
+                      <div>
+                        <strong>Best for:</strong> Couples with similar incomes or where both partners want to maximize their earning potential.
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                                {selectedTab === 'impact' && (
+                  <div className="space-y-32">
+                    {/* First Box - Labour Supply Impact */}
+                    <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                      <h3 className="text-lg font-semibold text-blue-800 mb-4">Labour Supply Impact</h3>
+                      <div className="space-y-3 text-gray-700">
+                        <div className="flex items-center">
+                          <span className="font-bold text-pink-600 mr-2">Women:</span>
+                          <span>Labor ↑ 2.3%, Participation ↑ 3.2%</span>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="font-bold text-blue-600 mr-2">Men:</span>
+                          <span>Minor impact</span>
+                        </div>
+                      </div>
+                    </div>
+                  
+                    {/* Second Box - Economic & Fiscal Impact */}
+                    <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                      <h3 className="text-lg font-semibold text-blue-800 mb-4">Economic & Fiscal Impact</h3>
+                      <div className="space-y-3 text-gray-700">
+                        <div className="flex items-center">
+                          <span className="font-bold text-purple-600 mr-2">Economic Impact:</span>
+                          <span>Disposable income increases by around €32M euros</span>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="font-bold text-orange-600 mr-2">Tax Revenue:</span>
+                          <span>Tax revenue increases by around €0.25M euros</span>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="font-bold text-indigo-600 mr-2">Fiscal Surplus:</span>
+                          <span>After VAT receipts reduction, results in a fiscal surplus of €10M euros</span>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="font-bold text-green-600 mr-2">Revenue:</span>
+                          <span>+€9.8 million for government</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Image Content */}
+              <div className="space-y-4 flex flex-col items-center">
+                {selectedTab === 'joint' && (
+                  <>
+                    <div className="bg-gray-50 p-1 rounded-lg">
+                      <img 
+                        src="/Joint_taxation.png" 
+                        alt="Tax unit choice illustration" 
+                        className="w-full max-w-md h-auto rounded-lg shadow-md"
+                      />
+                    </div>
+                    {/* <div className="bg-gray-50 p-1 rounded-lg">
+                      <img 
+                        src="/tax_policy_choices.jpg" 
+                        alt="Couple making tax decisions" 
+                        className="w-full max-w-md h-auto rounded-lg shadow-md"
+                      />
+                    </div> */}
+                  </>
+                )}
+
+                {selectedTab === 'individual' && (
+                  <>
+                    {/* <div className="bg-gray-50 p-1 rounded-lg">
+                      <img 
+                        src="/Individual_no_ad.png" 
+                        alt="Individual taxation results" 
+                        className="w-full max-w-md h-auto rounded-lg shadow-md"
+                      />
+                    </div> */}
+                    <div className="bg-gray-50 p-1 rounded-lg">
+                      <img 
+                        src="/Individual_taxation.png" 
+                        alt="Woman with calculator and tax form" 
+                        className="w-full max-w-md h-auto rounded-lg shadow-md"
+                      />
+                    </div>
+                  </>
+                )}
+
+                {selectedTab === 'impact' && (
+                  <>
+                    <div className="bg-gray-50 p-1 rounded-lg">
+                      <img 
+                        src="/result_1.png" 
+                        alt="Impact analysis results" 
+                        className="w-full max-w-md h-auto rounded-lg shadow-md"
+                      />
+                    </div>
+                    <div className="bg-gray-50 p-1 rounded-lg">
+                      <img 
+                        src="/Impact.png" 
+                        alt="Roads diverging - choice metaphor" 
+                        className="w-full max-w-md h-auto rounded-lg shadow-md"
+                      />
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Two Column Layout */}
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Tax Calculator */}
-          <div className="space-y-6">
-            <section className="bg-white rounded-xl p-6 shadow-lg">
-              <h2 className="text-xl font-bold mb-6 text-gray-800">
-                🧮 Taxation Method
-              </h2>
-              <TaxCalculator 
-                initialIncome1={initialIncome1}
-                initialIncome2={initialIncome2}
-                initialType={initialType}
-              />
-            </section>
-          </div>
-
-          {/* Behavioral Response Analysis */}
-          <div className="space-y-6">
-            <section className="bg-white rounded-xl p-6 shadow-lg">
-              <h2 className="text-xl font-bold mb-6 text-gray-800">
-                📊 Behavioral Response Analysis
-              </h2>
-              <BehavioralResponseChart />
-            </section>
-          </div>
-        </div>
+        {/* Single Column Layout */}
+        {/* <div className="max-w-4xl mx-auto">
+          <section className="bg-white rounded-xl p-6 shadow-lg">
+            <h2 className="text-xl font-bold mb-6 text-gray-800">
+              🧮 Taxation Method
+            </h2>
+            <TaxCalculator 
+              initialIncome1={initialIncome1}
+              initialIncome2={initialIncome2}
+              initialType={initialType}
+            />
+          </section>
+        </div> */}
 
         {/* Key Insights Section */}
-        <section className="mt-12">
+        {/* <section className="mt-12">
           <div className="bg-white rounded-xl p-8 shadow-lg">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
               💡 Key Research Findings
@@ -144,9 +297,9 @@ function TaxSimulatorContent() {
               </div>
             </div>
           </div>
-        </section>
-
-        {/* Call to Action */}
+        </section> */}
+{/* 
+        Call to Action
         <section className="mt-12 text-center">
           <div className="bg-white rounded-xl p-8 shadow-lg">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">
@@ -171,7 +324,52 @@ function TaxSimulatorContent() {
               </button>
             </div>
           </div>
-        </section>
+        </section> */}
+
+        {/* Footer */}
+        <footer className="mt-8 gradient-bg">
+          <div className="container mx-auto px-4 py-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-4">
+                {/* Method Section */}
+                <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-3 border border-white border-opacity-20">
+                  <div className="flex items-center mb-2">
+                    <div className="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center mr-3">
+                      <span className="text-sm">🔬</span>
+                    </div>
+                    <h3 className="text-base font-bold text-white">Methodology</h3>
+                  </div>
+                  <p className="text-gray-200 text-xs leading-tight">
+                    We combined a labour supply model with the LuxTaxBen tax-benefit simulator to analyze the impacts of the proposed tax change.
+                  </p>
+                </div>
+
+                {/* Data Section */}
+                <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-3 border border-white border-opacity-20">
+                  <div className="flex items-center mb-2">
+                    <div className="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center mr-3">
+                      <span className="text-sm">📊</span>
+                    </div>
+                    <h3 className="text-base font-bold text-white">Data Source</h3>
+                  </div>
+                  <p className="text-gray-200 text-xs leading-tight">
+                    The study relies on the 2010 EU-SILC dataset, focusing on couple households residing in Luxembourg.
+                  </p>
+                </div>
+              </div>
+
+              {/* Research Credit */}
+              {/* <div className="mt-3 text-center">
+                <div className="inline-flex items-center bg-white bg-opacity-10 backdrop-blur-sm rounded-full px-3 py-1 border border-white border-opacity-20">
+                  <span className="text-xs text-gray-300">
+                    Research by <span className="font-semibold text-white">Nizamul Islam</span> at 
+                    <span className="font-semibold text-white"> LISER</span>
+                  </span>
+                </div>
+              </div> */}
+            </div>
+          </div>
+        </footer>
       </main>
     </div>
   )

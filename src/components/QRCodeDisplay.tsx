@@ -25,29 +25,29 @@ export function QRCodeDisplay() {
 
   const scenarios = [
     { 
-      id: 'qr-test', 
-      label: 'QR Code Test', 
-      path: '/qr-test',
+      id: 'tax-simulator', 
+      label: 'Tax Simulator', 
+      path: '/tax-simulator',
       params: ''
     },
-    { 
-      id: 'couple-70k-20k', 
-      label: 'Couple: €70k + €20k', 
-      path: '/tax-simulator',
-      params: '?income1=70000&income2=20000' 
-    },
-    { 
-      id: 'couple-50k-30k', 
-      label: 'Couple: €50k + €30k', 
-      path: '/tax-simulator',
-      params: '?income1=50000&income2=30000' 
-    },
-    { 
-      id: 'couple-60k-25k', 
-      label: 'Couple: €60k + €25k', 
-      path: '/tax-simulator',
-      params: '?income1=60000&income2=25000' 
-    },
+    // { 
+    //   id: 'couple-70k-20k', 
+    //   label: 'Couple: €70k + €20k', 
+    //   path: '/tax-simulator',
+    //   params: '?income1=70000&income2=20000' 
+    // },
+    // { 
+    //   id: 'couple-50k-30k', 
+    //   label: 'Couple: €50k + €30k', 
+    //   path: '/tax-simulator',
+    //   params: '?income1=50000&income2=30000' 
+    // },
+    // { 
+    //   id: 'couple-60k-25k', 
+    //   label: 'Couple: €60k + €25k', 
+    //   path: '/tax-simulator',
+    //   params: '?income1=60000&income2=25000' 
+    // },
   ]
 
   const [selectedScenario, setSelectedScenario] = useState(scenarios[0])
@@ -123,10 +123,10 @@ export function QRCodeDisplay() {
         </div>
 
         {/* Instructions */}
-        {selectedScenario.id === 'qr-test' && (
-          <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg text-sm">
-            <p className="text-yellow-800">
-              <strong>🔧 Testing Mode:</strong> This QR code will take you to a test page to verify the QR scanning is working correctly.
+        {selectedScenario.id === 'tax-simulator' && (
+          <div className="bg-blue-50 border border-blue-200 p-3 rounded-lg text-sm">
+            <p className="text-blue-800">
+              <strong>📱 Interactive Demo:</strong> This QR code will take you to the interactive tax simulator where you can explore different scenarios.
             </p>
           </div>
         )}
