@@ -115,8 +115,6 @@ export function QRCodeDisplay() {
           <a 
             href={qrUrl}
             className="text-blue-600 hover:text-blue-800 text-sm underline font-medium"
-            target="_blank"
-            rel="noopener noreferrer"
           >
             🔗 Click here to test the link directly
           </a>

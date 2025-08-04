@@ -326,6 +326,39 @@ function TaxSimulatorContent() {
           </div>
         </section> */}
 
+        {/* Concluding Remarks */}
+        <section className="mb-8">
+          <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200">
+            <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
+              📋 Concluding Remarks
+            </h2>
+            <div className="max-w-4xl mx-auto">
+              <div className="space-y-4 text-gray-700">
+                <div className="flex items-start">
+                  <span className="mr-3 mt-1 text-blue-600 font-bold">•</span>
+                  <span><strong>Labor Force Participation:</strong> Individual taxation increases labor force participation, especially among women.</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="mr-3 mt-1 text-green-600 font-bold">•</span>
+                  <span><strong>Distributional Effects:</strong> Distributional effects depend on household composition and income level.</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="mr-3 mt-1 text-purple-600 font-bold">•</span>
+                  <span><strong>Fiscal Neutrality:</strong> Fiscal neutrality is possible with minimal tax parameter adjustments.</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="mr-3 mt-1 text-orange-600 font-bold">•</span>
+                  <span><strong>Microsimulation Value:</strong> Microsimulation proves essential for ex-ante evaluation of tax reforms.</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="mr-3 mt-1 text-indigo-600 font-bold">•</span>
+                  <span><strong>Policy Lever:</strong> Tax unit choice is a powerful lever in modernizing fiscal policy.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Footer */}
         <footer className="mt-8 gradient-bg">
           <div className="container mx-auto px-4 py-4">
@@ -358,8 +391,8 @@ function TaxSimulatorContent() {
                 </div>
               </div>
 
-              {/* Research Credit */}
-              {/* <div className="mt-3 text-center">
+              {/* Research Credit
+              <div className="mt-3 text-center">
                 <div className="inline-flex items-center bg-white bg-opacity-10 backdrop-blur-sm rounded-full px-3 py-1 border border-white border-opacity-20">
                   <span className="text-xs text-gray-300">
                     Research by <span className="font-semibold text-white">Nizamul Islam</span> at 
@@ -367,6 +400,22 @@ function TaxSimulatorContent() {
                   </span>
                 </div>
               </div> */}
+
+              {/* Reference Citation */}
+              <div className="mt-4 text-center">
+                <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-3 border border-white border-opacity-20 max-w-4xl mx-auto">
+                  <p className="text-xs text-gray-300 leading-relaxed">
+                    <span className="font-semibold text-white">Reference:</span> Islam, N. (2024). Micro-simulation analysis of joint to individual taxation in Luxembourg. 
+                    <em className="text-gray-200">Cahiers de fiscalité luxembourgeoise et européenne</em>, 2023(2). 
+                    <a href="https://www.larcier-intersentia.com/fr/cahiers-fiscalite-luxembourgeoise-europeenne.html" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       className="text-blue-300 hover:text-blue-200 underline">
+                      https://www.larcier-intersentia.com/fr/cahiers-fiscalite-luxembourgeoise-europeenne.html
+                    </a>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </footer>
