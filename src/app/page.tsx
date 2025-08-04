@@ -2,6 +2,15 @@ import Link from 'next/link'
 import { QRCodeDisplay } from '@/components/QRCodeDisplay'
 import { PollResults } from '@/components/PollResults'
 
+// Utility function to get correct image path for GitHub Pages
+function getImagePath(imageName: string): string {
+  // Check if we're on GitHub Pages (repository name in path)
+  if (typeof window !== 'undefined' && window.location.pathname.includes('/tax_Luxembourg')) {
+    return `/tax_Luxembourg${imageName}`
+  }
+  return imageName
+}
+
 export default function Home() {
   return (
     <main className="container mx-auto px-4 py-8">

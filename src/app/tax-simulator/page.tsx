@@ -8,6 +8,15 @@ import Link from 'next/link'
 // Force dynamic rendering
 export const dynamic = 'force-dynamic'
 
+// Utility function to get correct image path for GitHub Pages
+function getImagePath(imageName: string): string {
+  // Check if we're on GitHub Pages (repository name in path)
+  if (typeof window !== 'undefined' && window.location.pathname.includes('/tax_Luxembourg')) {
+    return `/tax_Luxembourg${imageName}`
+  }
+  return imageName
+}
+
 // Loading component for Suspense fallback
 function LoadingSpinner() {
   return (
@@ -54,7 +63,7 @@ function TaxSimulatorContent() {
           <div className="flex justify-center">
             <div className="bg-white p-4 rounded-xl shadow-lg">
               <img 
-                src="/tax_policy_choices.png" 
+                src={getImagePath("/tax_policy_choices.png")} 
                 alt="Taxing Choices: Joint vs Individual Taxation" 
                 className="w-full max-w-4xl h-auto rounded-lg"
               />
@@ -196,7 +205,7 @@ function TaxSimulatorContent() {
                   <>
                     <div className="bg-gray-50 p-1 rounded-lg">
                       <img 
-                        src="/Joint_taxation.png" 
+                        src={getImagePath("/Joint_taxation.png")} 
                         alt="Tax unit choice illustration" 
                         className="w-full max-w-md h-auto rounded-lg shadow-md"
                       />
@@ -222,7 +231,7 @@ function TaxSimulatorContent() {
                     </div> */}
                     <div className="bg-gray-50 p-1 rounded-lg">
                       <img 
-                        src="/Individual_taxation.png" 
+                        src={getImagePath("/Individual_taxation.png")} 
                         alt="Woman with calculator and tax form" 
                         className="w-full max-w-md h-auto rounded-lg shadow-md"
                       />
@@ -234,14 +243,14 @@ function TaxSimulatorContent() {
                   <>
                     <div className="bg-gray-50 p-1 rounded-lg">
                       <img 
-                        src="/result_1.png" 
+                        src={getImagePath("/result_1.png")} 
                         alt="Impact analysis results" 
                         className="w-full max-w-md h-auto rounded-lg shadow-md"
                       />
                     </div>
                     <div className="bg-gray-50 p-1 rounded-lg">
                       <img 
-                        src="/Impact.png" 
+                        src={getImagePath("/Impact.png")} 
                         alt="Roads diverging - choice metaphor" 
                         className="w-full max-w-md h-auto rounded-lg shadow-md"
                       />

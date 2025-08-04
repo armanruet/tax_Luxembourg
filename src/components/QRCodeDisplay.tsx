@@ -14,7 +14,7 @@ export function QRCodeDisplay() {
       const host = window.location.host
       
       // Check if we're on GitHub Pages and add the base path
-      const isGitHubPages = host.includes('github.io')
+      const isGitHubPages = host.includes('github.io') || window.location.pathname.includes('/tax_Luxembourg')
       const basePath = isGitHubPages ? '/tax_Luxembourg' : ''
       
       const currentUrl = `${protocol}//${host}${basePath}`
